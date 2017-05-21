@@ -158,13 +158,13 @@ function ret = d_loss_by_d_model(model, data, wd_coefficient)
   b = transpose(hid_output .* (1 - hid_output));
   c = a .* b;
   ret.input_to_hid = transpose(c) * transpose(data.inputs);
-  ret.input_to_hid = ret.input_to_hid + model.input_to_hid .* wd_coefficient;
   ret.input_to_hid = ret.input_to_hid / size(data.inputs,2);
+  ret.input_to_hid = ret.input_to_hid + model.input_to_hid .* wd_coefficient;
   %ret.input_to_hid = model.input_to_hid .* wd_coefficient;
   
   ret.hid_to_class = (class_prob - data.targets) * transpose(hid_output);
-  ret.hid_to_class = ret.hid_to_class + model.hid_to_class .* wd_coefficient;
   ret.hid_to_class = ret.hid_to_class / size(data.inputs,2);
+  ret.hid_to_class = ret.hid_to_class + model.hid_to_class .* wd_coefficient;
   %ret.hid_to_class = model.hid_to_class .* wd_coefficient;
 end
 
